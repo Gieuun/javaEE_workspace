@@ -1,4 +1,21 @@
+<%@page import="com.sds.newsapp.news.News"%>
+<%@page import="java.util.List"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="com.sds.newsapp.news.NewsDAO"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%! 
+	//이 영역은 현재 페이지인 list.jsp가 서블릿으로 변경되어 질때의 멤버영역이다
+	//따라서 newsDAO를 has a 관계로 보유하려면, 멤버 영역인 선어부에 선언하자 
+	NewsDAO newsDAO=new NewsDAO();
+%>
+
+<%
+//이 영역은 현재 페이지인 list.jsp가 서블릿으로 변경되어 질때의 service() 메서드 영역이다
+//따라서 요청 처리 로직을 작성할 수 있다
+//평상시와는 틀리게, 오늘부터는 여기서 db연동 코드를 작성하지 않고 DAO에게 일을 시켜 그 결과를 가져오자
+ List<News> list = newsDAO.selectAll();
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,13 +57,16 @@ tr:nth-child(even) {
 			<th>등록일</th>
 			<th>조회수</th>
 		</tr>
-		<%for(int i=1; i<=10; i++) {%>
+		<%for(int i=0;i<list.size();i++) {%>
+		<%News news = list.get(i); %>
 		<tr>
-			<td>Jill</td>
-			<td>Smith</td>
-			<td>50</td>
-			<td>50</td>
-			<td>50</td>
+			<td><%%></td>
+			<td>
+			<a href="/news/content.jsp?news_idx=<%=news.getNews_idx()%>"><%=news.getTitle()%>
+			</a>></td>
+			<td><%= news.getWriter() %></td>
+			<td><%= news.getRegdate() %></td>
+			<td><%= news.getHit() %></td>
 		</tr>
 		<% }%>
 		<tr>
