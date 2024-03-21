@@ -75,7 +75,7 @@ $(function(){
 	$("#bt_del").click(function(){
 		if(confirm("삭제하시겠어요?")){
 			//delete news where news_idx=3
-			location.href="/news/delete?news_idx=??";
+			location.href="/news/delete?news_idx=<%=news_idx%>";
 		}
 	});
 	

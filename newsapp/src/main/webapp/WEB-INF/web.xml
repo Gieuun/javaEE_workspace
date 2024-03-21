@@ -40,5 +40,15 @@
 		<servlet-name>editServlet</servlet-name>
 		<url-pattern>/news/edit</url-pattern>
 	</servlet-mapping>
+	
+		<!-- 서블릿 매핑 -->
+	<servlet>
+		<servlet-name>deleteServlet</servlet-name>
+		<servlet-class>com.sds.newsapp.news.DeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteServlet</servlet-name>
+		<url-pattern>/news/delete</url-pattern>
+	</servlet-mapping>
 
 </web-app>
