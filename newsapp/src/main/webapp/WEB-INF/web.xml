@@ -14,12 +14,12 @@
 	</welcome-file-list>
 	<!-- 서블릿 매핑 -->
 	<servlet>
-		<servlet-name>registServlet</servlet-name>
-		<servlet-class>com.sds.newsapp.news.RegistServlet</servlet-class>
+		<servlet-name>writeServlet</servlet-name>
+		<servlet-class>com.sds.newsapp.news.WriteServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>registServlet</servlet-name>
-		<url-pattern>/news/regist</url-pattern>
+		<servlet-name>writeServlet</servlet-name>
+		<url-pattern>/news/write</url-pattern>
 	</servlet-mapping>
 
 </web-app>

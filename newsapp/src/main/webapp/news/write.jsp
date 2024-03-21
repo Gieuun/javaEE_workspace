@@ -62,7 +62,7 @@ input[type=button]:hover {
 
 		$("input[type=button]").click(function() {
 			$("form").attr({
-				action : "/news/regist",
+				action : "/news/write",
 				method : "post"
 			});
 			$("form").submit(); // 전송
