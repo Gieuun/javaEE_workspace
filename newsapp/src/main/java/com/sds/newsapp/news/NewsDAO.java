@@ -201,4 +201,51 @@ public class NewsDAO {
 		}
 		return news;
 	}
+
+	//게시물 1건 수정 
+	public int update(News news) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		int result=0; //쿼리 실행 결과를 담을 변수  
+		
+		try {
+			Class.forName(driver);
+			
+			con=DriverManager.getConnection(url, user, pass); 
+			if(con ==null) {
+				System.out.println("접속 실패");
+			}else {
+				String sql="update news set title=?, writer=?, content=? where news_idx=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1, news.getTitle()); //제목을 dto 에서 꺼내서 대입
+				pstmt.setString(2, news.getWriter()); //작성자를 dto에서 꺼내서 대입
+				pstmt.setString(3, news.getContent()); //내용을 dto에서 꺼내서 대입
+				pstmt.setInt(4, news.getNews_idx());//pk를 dto에서 꺼내서 대입
+				
+				result = pstmt.executeUpdate(); //쿼리실행 후 결과 반환 0이면 실패
+			}
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt !=null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if(con !=null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}					
+		}
+		return result; //결과 반환
+	}
 }

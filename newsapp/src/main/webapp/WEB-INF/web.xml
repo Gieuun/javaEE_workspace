@@ -21,5 +21,24 @@
 		<servlet-name>writeServlet</servlet-name>
 		<url-pattern>/news/write</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>registServlet</servlet-name>
+		<servlet-class>com.sds.newsapp.news.RegistServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>registServlet</servlet-name>
+		<url-pattern>/news/regist</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 서블릿 매핑 -->
+	<servlet>
+		<servlet-name>editServlet</servlet-name>
+		<servlet-class>com.sds.newsapp.news.EditServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>editServlet</servlet-name>
+		<url-pattern>/news/edit</url-pattern>
+	</servlet-mapping>
 
 </web-app>
