@@ -54,6 +54,7 @@ input[type=button]:hover {
 	padding: 20px;
 }
 </style>
+<%@ include file="../inc/head.jsp" %>
 <!-- css -->
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"

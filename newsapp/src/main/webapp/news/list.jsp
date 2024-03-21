@@ -37,7 +37,7 @@ tr:nth-child(even) {
 	background-color: #f2f2f2;
 }
 </style>
-<title>뉴스 게시판</title>
+<%@ include file="../inc/head.jsp" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
