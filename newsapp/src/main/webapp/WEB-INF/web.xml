@@ -60,5 +60,16 @@
 		<servlet-name>registComments</servlet-name>
 		<url-pattern>/comments/regist</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 댓글 목록 처리 서블릿 매핑 -->
+	<servlet>
+		<servlet-name>listComments</servlet-name>
+		<servlet-class>com.sds.newsapp.comments.ListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>listComments</servlet-name>
+		<url-pattern>/comments/list</url-pattern>
+	</servlet-mapping>
+	
 
 </web-app>
