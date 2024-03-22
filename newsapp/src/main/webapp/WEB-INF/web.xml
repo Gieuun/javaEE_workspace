@@ -31,7 +31,7 @@
 		<url-pattern>/news/regist</url-pattern>
 	</servlet-mapping>
 	
-	<!-- 서블릿 매핑 -->
+	<!-- 글 수정 요청 매핑 -->
 	<servlet>
 		<servlet-name>editServlet</servlet-name>
 		<servlet-class>com.sds.newsapp.news.EditServlet</servlet-class>
@@ -41,7 +41,7 @@
 		<url-pattern>/news/edit</url-pattern>
 	</servlet-mapping>
 	
-		<!-- 서블릿 매핑 -->
+		<!-- 글 삭제 요청 매핑 -->
 	<servlet>
 		<servlet-name>deleteServlet</servlet-name>
 		<servlet-class>com.sds.newsapp.news.DeleteServlet</servlet-class>
@@ -49,6 +49,16 @@
 	<servlet-mapping>
 		<servlet-name>deleteServlet</servlet-name>
 		<url-pattern>/news/delete</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 댓글 등록 처리 서블릿 매핑 -->
+	<servlet>
+		<servlet-name>registComments</servlet-name>
+		<servlet-class>com.sds.newsapp.comments.RegistServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>registComments</servlet-name>
+		<url-pattern>/comments/regist</url-pattern>
 	</servlet-mapping>
 
 </web-app>
