@@ -1,10 +1,8 @@
 package com.sds.newsapp.news;
 
-
-/*
- * 이 클래스는 로직을 작성 하기위함이 아닌, 오직 데이터 한건을 담기 위한 데이터 전달
- * 객체로써 정의한다 ... 이러한 목적의 객체를 가리켜 어플리케이션 설계 분야에서는
- * DTO(Data Transfer Object)라 한다 
+/* 이 클래스는 로직을 작성하기 위함이 아닌, 오직 데이터 한건을 담기 위한 데이터 전달 객체로써
+ * 정의한다...이러한 목적의 객체를 가리켜 어플리케이션 설계 분야에서는 Data Transfer Object
+ * DTO라 한다..
  * */
 public class News {
 	private int news_idx;
@@ -13,6 +11,7 @@ public class News {
 	private String content;
 	private String regdate;
 	private int hit;
+	private int cnt; //딸려있는 댓글 수
 	
 	public int getNews_idx() {
 		return news_idx;
@@ -50,4 +49,12 @@ public class News {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	
+	
 }
