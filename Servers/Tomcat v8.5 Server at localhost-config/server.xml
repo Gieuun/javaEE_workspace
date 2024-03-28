@@ -37,8 +37,32 @@
          UserDatabaseRealm to authenticate users
     -->
     <Resource auth="Container" description="User database that can be updated and saved" factory="org.apache.catalina.users.MemoryUserDatabaseFactory" name="UserDatabase" pathname="conf/tomcat-users.xml" type="org.apache.catalina.UserDatabase"/>
-  </GlobalNamingResources>
+	<!--
+	이 톰켓에서 실행되는 모든 웹사이트가 이 영역을 공통으로 참조 할 수 있다
+	클라이언트인 웹브라우저가 요청을 시도할때마다, 그시점에 오라크이나 기타 DB에 대한 접속을
+	시도하는 방법은 다수의 클라이언트가 요청을 시도할 경우, 시간 지연으로 인한 부하가 걸린다
+	즉 대기자가 많아진다 또한 힘들게 취득한 Connection을 각 클라이언트마다 1회성 작업을 완료하고
+	다시 끊어버리는 방식은 효율성 또한 떨어진다
+	
+	해결책) 접속자가 없더라도, 나중을 위해 미리 특정 DBMS와의 연결객체인 Connection 객체를 확보
+	해 놓고 모아놓은 영역을 커넥션 풀이라 하는데, 접속자가 들어오면 이 Connection 모아진 Pool로
+	부터 Connection 하나를 꺼내어 접속자에게 할당하면, 접속자는 원하는 작업을 끝낸 후 이 Connection
+	을 해제시키지 않고, 다시 Pool로 돌려보내놓는 기법을 커넥션 풀링이라한다.
+	만일 접속자가 예상보다 더 많이 접속을 시도하면, 자동으로 Connection 객체를 더 많이 확보해 놓는
+	로직이 포함되어 있으므로, 자체적으로 관리해준다
+	커넥션풀링은 개발자가 직접 작성해도 되지만, TOMCAT, WebLoginc, JBoss 등에서 자체적으로 이 기능을
+	지원한다..즉, 검증 받은 기술인, 서버에서 지원하는 커넥션풀을 쓰도록하자
 
+	  톰켓이 커넥션풀을 구현한 객체를 DataSource 형으로 지원하는데, 이 자원은 JDNI라는
+	  Java Naming Directory Interface 기술로 지원되며
+	  자바 코드안에 지원을 두는 것이 아닌, servel.xml에서 설정을 통해 커넥션풀을 지원한다
+	 왜? 유지 보수성이 높기 때문에
+	  -->
+	  <Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" initialSize="0" maxIdle="20" maxTotal="20" maxWaitMillis="5000" minIdle="5" name="jndi/oracle" password="1234" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:XE" username="shop"/>
+
+  </GlobalNamingResources>
+	  
+	  
   <!-- A "Service" is a collection of one or more "Connectors" that share
        a single "Container" Note:  A "Service" is not itself a "Container",
        so you may not define subcomponents such as "Valves" at this level.
@@ -160,7 +184,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="site0319" path="/site0319" reloadable="true" source="org.eclipse.jst.jee.server:site0319"/><Context docBase="sessionapp" path="/sessionapp" reloadable="true" source="org.eclipse.jst.jee.server:sessionapp"/><Context docBase="newsapp" path="/" reloadable="true" source="org.eclipse.jst.jee.server:newsapp"/></Host>
+      <Context docBase="openapp" path="/openapp" reloadable="false" source="org.eclipse.jst.jee.server:openapp"/><Context docBase="AsyncBoard" path="/" reloadable="true" source="org.eclipse.jst.jee.server:AsyncBoard"/></Host>
     </Engine>
   </Service>
 </Server>

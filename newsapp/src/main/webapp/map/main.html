@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	#wrapper{
+		width:1200px;
+		height:800px;
+		background:yellow;
+		margin:auto;
+	}
+	#aside{
+		width:200px;
+		height:100%;
+		background:orange;
+		float:left;
+	}
+	#aside input, button{
+		width:95%;
+		height:40px;
+		margin-top:3px;
+	}
+	
+	#content{
+		width:1000px;
+		height:100%;
+		background:green;
+		float:left	
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+	let map; //구글 맵 객체 
+	
+	function initMap(){
+		let mapProp= {
+			center:new google.maps.LatLng(37.57341, 126.9772),
+			zoom:18,
+		};
+		map = new google.maps.Map(document.getElementById("content"),mapProp);		
+	}
+	
+	//등록한 맛집을 지도에 표시 
+	function renderMap(){
+		var marker = new google.maps.Marker({
+			position:new google.maps.LatLng($("#lati").val(), $("#longi").val()),
+			animation:google.maps.Animation.BOUNCE
+		});
+		marker.setMap(map);	
+		
+		//정보창 띄우기
+		var infowindow = new google.maps.InfoWindow({
+			content:$("#name").val()
+		});
+
+		infowindow.open(map,marker);		
+	}
+	
+	//사용자가 맵을 보고 있으므로, 새로고침 없이 백그라운드에서 등록 업무를 수행하자
+	function regist(){
+		let xhttp = new XMLHttpRequest(); //비동기 객체 생성
+		
+		xhttp.onreadystatechange=function(){
+			if(this.readyState==4 && this.status==200){
+				//등록 성공 여부를 판단..
+				console.log("결과는 ", this.responseText);
+				
+				//문자열에 불과한 응답데이터를 js의 객체화 시키자
+				let obj = JSON.parse(this.responseText);
+				
+				if(obj.result=="ok"){
+					//alert("등록 성공");
+					renderMap();
+				}else{
+					alert("등록 실패");
+				}
+				
+			}	
+		}
+		
+		xhttp.open("POST", "/map/regist.jsp");
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		
+		xhttp.send("lati="+$("#lati").val()+"&longi="+$("#longi").val()+"&name="+$("#name").val());
+	}
+	
+	$(function(){
+		//위도 경도 붙여넣는 텍스트 필드에서 키보드에서 손을 뗄때, 글자 수가 여러자 이상이면
+		//그 시점에 문자열을 분리하여, 위도와 경도에 출력하자 
+		$("#mock").on("keyup", function(){
+			if( $(this).val().length >15 ){
+				console.log("키보드 눌렀다 뗐어?", $(this).val());
+				
+				let arr = $(this).val().split(",");//쉼표를 구분으로 위도와 경도 나누기  split(",")
+				$("#lati").val(arr[0]);
+				$("#longi").val(arr[1].trim());//공백없애기
+			}
+		});
+		
+		$("button").click(function(){
+			regist();
+		});
+	});
+</script>
+
+</head>
+<body>
+	
+	<div id="wrapper">
+		<div id="aside">
+			<input type="text" id="mock"  	placeholder="위치 붙여넣기">
+			<input type="text" id="lati" 		placeholder="위도">
+			<input type="text" id="longi" 		placeholder="경도">
+			<input type="text" id="name" 		placeholder="맛집명">
+			
+			<button>등록</button>
+		</div>
+		
+		<div id="content"></div>
+	</div>
+	
+</body>
+</html>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq8bKgGx_1q1mh53OJKkCTW46fPTmTrBM&callback=initMap"></script>
