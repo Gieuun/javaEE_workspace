@@ -17,7 +17,7 @@ public class ExcelRead {
 			//하드 디스크에 있는 파일을 대상으로 WorkBook 객체를 생성하자
 			try {
 				//엑셀 파일을 접근
-				Workbook workbook = new XSSFWorkbook("D:/javaEE_workspace/Dataroom/src/main/webapp/data/emp.xlsx");
+				Workbook workbook = new XSSFWorkbook("D:/javaEE_workspace/Dataroom/src/main/webapp/data/emp2.xlsx");
 				
 				//Sheet에 접근
 				Sheet sheet = workbook.getSheetAt(0); //첫번째 시트에 접근
@@ -34,7 +34,7 @@ public class ExcelRead {
 						if(cell.getCellType()==CellType.STRING) { //문자형이라면
 							System.out.print(cell.getStringCellValue());
 						}else if(cell.getCellType()==CellType.NUMERIC) {
-							System.out.print(cell.getNumericCellValue());
+							System.out.println(cell.getNumericCellValue());
 						}
 					}
 					System.out.println("--------------------------------------");
