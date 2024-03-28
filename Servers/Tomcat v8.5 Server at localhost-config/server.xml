@@ -184,7 +184,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="openapp" path="/openapp" reloadable="false" source="org.eclipse.jst.jee.server:openapp"/><Context docBase="AsyncBoard" path="/" reloadable="true" source="org.eclipse.jst.jee.server:AsyncBoard"/></Host>
+      <Context docBase="openapp" path="/openapp" reloadable="false" source="org.eclipse.jst.jee.server:openapp"/><Context docBase="AsyncBoard" path="/AsyncBoard" reloadable="true" source="org.eclipse.jst.jee.server:AsyncBoard"/><Context docBase="Dataroom" path="/" reloadable="true" source="org.eclipse.jst.jee.server:Dataroom"/></Host>
     </Engine>
   </Service>
 </Server>
